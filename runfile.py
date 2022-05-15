@@ -60,10 +60,8 @@ async def main(socket):
             data = json.loads(await client.recv())['data']
             x = tick_find(name=data['s'], price=data['c'])
             if x:
-                print(x)
                 bot.send_message(chat_id=id, text=x)
-                await asyncio.sleep(1800
-                    )  # Чтобы бот не довел нас до инсульта своими оповещениями, настроим отправку каждые 30 мин
+                await asyncio.sleep(60)  # Чтобы бот не довел нас до инсульта своими оповещениями, настроим отправку каждую минуту
 
 
 async def steck():
@@ -78,3 +76,4 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     loop.run_until_complete(steck())
     loop.close()
+
