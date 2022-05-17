@@ -55,15 +55,15 @@ def tick_find(name, price):
 
 
 async def main(socket):
-    async with websockets.connect(socket) as client:
+    async with websockets.connect(socket) as client: # подключаемся к сокету
         while True:
             data = json.loads(await client.recv())['data']
-            x = tick_find(name=data['s'], price=data['c'])
+            x = tick_find(name=data['s'], price=data['c']) # в качестве цены брал цену закрытия сделки data['c'] (по документации)
             if x:
                 bot.send_message(chat_id=id, text=x)
                 await asyncio.sleep(60)  # Чтобы бот не довел нас до инсульта своими оповещениями, настроим отправку каждую минуту
 
-
+# Создаеи список задач для их ассинхронного выполнения
 async def steck():
     tasks = []
     for socket in sockets:
